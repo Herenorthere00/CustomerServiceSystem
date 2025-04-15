@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "customerservice.feedback";
+option java_outer_classname = "FeedbackProto";
+
+package customerservice.feedback;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// Collect customer feedback and provides analytical summaries.
+
+service FeedbackService {
+      // Client Streaming -  Accept multiple feedback entries from clients
+rpc SubmitFeedback (stream FeedbackRequest) returns (FeedbackResponse) {}
+
+//  Server Streaming - Stream summarized feedback data to clients
+  rpc GetFeedbackSummary (FeedbackSummaryRequest) returns (stream FeedbackSummary) {}
+}
+
+message FeedbackRequest {
+  string customerId = 1;
+  string feedbackText = 2;
+}
+
+message FeedbackResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message FeedbackSummaryRequest {
+  string dateRange = 1;
+}
+
+message FeedbackSummary {
+  string summary = 1;
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "customerservice.livechat";
+option java_outer_classname = "LiveChatProto";
+
+package customerservice.livechat;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// Customers and customer service agents can communicate in real time
+
+service LiveChatService {
+  // Bi-Di - Facilitate continuous two-way chat.
+  rpc ChatStream (stream ChatRequest) returns (stream ChatResponse) {}
+}
+
+// Customer requests a live chat customer service
+message ChatRequest {
+  string userId = 1;
+  string message = 2;
+}
+
+// an Agent can respond to the customer
+message ChatResponse {
+  string agentId = 1;
+  string response = 2;
+}

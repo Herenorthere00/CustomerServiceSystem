@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "customerservice.supportticket";
+option java_outer_classname = "SupportTicketingProto";
+
+package customerservice.supportticket;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// Customers can inquire, then a ticket will be generated accordingly. And customer can 
+// get the status of ticket
+
+service SupportTicketService {
+// Unary – Generate a ticket based on customer input
+rpc CreateTicket (TicketRequest) returns (TicketResponse) {}
+
+// Unary - Retrieve the status of an existing ticket
+  rpc GetTicketStatus (TicketStatusRequest) returns (TicketStatusResponse) {}
+}
+
+// A customer inquires and request a ticket
+message TicketRequest {
+  string customerId = 1;
+  string issue = 2;
+}
+// shows the status of the ticket
+message TicketResponse {
+  string ticketId = 1;
+  string status = 2;
+}
+
+message TicketStatusRequest {
+  string ticketId = 1;
+}
+
+message TicketStatusResponse {
+  string status = 1;
+}
+
+ 
+   
+
